@@ -7,6 +7,9 @@ import { ThemeToggle } from '../theme-toggle';
 import Link from 'next/link';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 
+// Check if Clerk is configured
+const isClerkConfigured = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
 // Cube Logo Component
 function CubeLogo(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -37,7 +40,6 @@ function CubeLogo(props: React.SVGProps<SVGSVGElement>) {
       <path
         d="M17 4.5L7 9.5"
         stroke="currentColor"
-        strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -52,6 +54,36 @@ export default function AuthHeader() {
     { name: "Analytics", href: "/analytics" },
     { name: "AI Assistant", href: "/ai-assistant" },
   ];
+
+  // If Clerk is not configured, show a simplified header
+  if (!isClerkConfigured) {
+    return (
+      <header className="sticky top-0 z-50 w-full border-b border-slate-200/10 bg-white/95 dark:bg-slate-950/95 backdrop-blur supports-[backdrop-filter]:bg-white/75 dark:supports-[backdrop-filter]:bg-slate-950/75">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between">
+            {/* Logo/Brand */}
+            <div className="flex items-center">
+              <Link href="/" className="flex items-center space-x-3 group">
+                <div className="w-8 h-8 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-200 shadow-lg group-hover:shadow-xl">
+                  <CubeLogo className="w-5 h-5 text-white" />
+                </div>
+                <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent group-hover:from-cyan-500 group-hover:to-blue-600 transition-all duration-200">
+                  RealEstate AI
+                </span>
+              </Link>
+            </div>
+
+            {/* Theme Toggle */}
+            <div className="flex items-center space-x-3">
+              <div className="border border-slate-200 dark:border-slate-700 rounded-lg bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors duration-200">
+                <ThemeToggle />
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+    );
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-slate-200/10 bg-white/95 dark:bg-slate-950/95 backdrop-blur supports-[backdrop-filter]:bg-white/75 dark:supports-[backdrop-filter]:bg-slate-950/75">
