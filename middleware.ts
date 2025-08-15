@@ -1,9 +1,6 @@
 import { clerkMiddleware } from '@clerk/nextjs/server';
 
-// Check if Clerk is properly configured
-const isClerkConfigured = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY && process.env.CLERK_SECRET_KEY;
-
-export default isClerkConfigured ? clerkMiddleware() : (req: any, res: any) => res.next();
+export default clerkMiddleware();
 
 export const config = {
   matcher: [
