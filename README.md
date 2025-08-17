@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # 🏠 RealEstate-AI - AI-Powered Real Estate Investment Platform
 
 A cutting-edge, futuristic real estate investment platform powered by artificial intelligence, featuring comprehensive analytics, property management, and market intelligence tools.
