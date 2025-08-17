@@ -6,6 +6,7 @@ export interface GroqAIResponse {
 }
 
 export class GroqAIService {
+<<<<<<< HEAD
   private static readonly API_KEY = process.env.GROQ_API_KEY;
   private static readonly BASE_URL = "https://api.groq.com/openai/v1";
   
@@ -50,6 +51,14 @@ export class GroqAIService {
     try {
       this.resetModelIndex(); // Reset for fresh start
       
+=======
+  private static readonly API_KEY = process.env.GROQ_API_KEY || "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";
+  private static readonly BASE_URL = "https://api.groq.com/openai/v1";
+  private static readonly MODEL = "compound-beta";
+
+  static async analyzeRealEstateDeal(dealData: any): Promise<GroqAIResponse> {
+    try {
+>>>>>>> dfa74fe6c9fc29bf7c76b775d708af73bbff812d
       const prompt = `Analyze this real estate deal and provide detailed insights:
 
 Property Details: ${dealData.description || 'N/A'}
@@ -76,6 +85,7 @@ Format the response as JSON with these exact field names:
   "analysis": string
 }`;
 
+<<<<<<< HEAD
       // Try with different models if rate limited
       let lastError: Error | null = null;
       
@@ -151,6 +161,47 @@ Format the response as JSON with these exact field names:
         success: false, 
         error: lastError?.message || 'All models failed after trying all fallbacks' 
       };
+=======
+      const response = await fetch(`${this.BASE_URL}/chat/completions`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${this.API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: this.MODEL,
+          messages: [
+            {
+              role: 'user',
+              content: prompt
+            }
+          ],
+          temperature: 0.3,
+          max_tokens: 1000
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Groq API error: ${response.status}`);
+      }
+
+      const result = await response.json();
+      const content = result.choices[0]?.message?.content;
+      
+      if (!content) {
+        throw new Error('No content received from Groq API');
+      }
+
+      // Try to parse JSON from the response
+      try {
+        const parsedData = JSON.parse(content);
+        return { success: true, data: parsedData };
+      } catch (parseError) {
+        // If JSON parsing fails, extract key information from text
+        const extractedData = this.extractDataFromText(content);
+        return { success: true, data: extractedData };
+      }
+>>>>>>> dfa74fe6c9fc29bf7c76b775d708af73bbff812d
     } catch (error) {
       console.error('Groq AI Service Error:', error);
       return { 
@@ -161,6 +212,7 @@ Format the response as JSON with these exact field names:
   }
 
   static async generateMarketInsights(marketData: any): Promise<GroqAIResponse> {
+<<<<<<< HEAD
     if (!this.API_KEY) {
       return { 
         success: false, 
@@ -171,6 +223,9 @@ Format the response as JSON with these exact field names:
     try {
       this.resetModelIndex(); // Reset for fresh start
       
+=======
+    try {
+>>>>>>> dfa74fe6c9fc29bf7c76b775d708af73bbff812d
       const prompt = `Analyze this real estate market data and provide insights:
 
 Market Data: ${JSON.stringify(marketData)}
@@ -191,6 +246,7 @@ Format as JSON with these fields:
   "strategies": string[]
 }`;
 
+<<<<<<< HEAD
       // Try with different models if rate limited
       let lastError: Error | null = null;
       
@@ -266,6 +322,45 @@ Format as JSON with these fields:
         success: false, 
         error: lastError?.message || 'All models failed after trying all fallbacks' 
       };
+=======
+      const response = await fetch(`${this.BASE_URL}/chat/completions`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${this.API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: this.MODEL,
+          messages: [
+            {
+              role: 'user',
+              content: prompt
+            }
+          ],
+          temperature: 0.4,
+          max_tokens: 800
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Groq API error: ${response.status}`);
+      }
+
+      const result = await response.json();
+      const content = result.choices[0]?.message?.content;
+      
+      if (!content) {
+        throw new Error('No content received from Groq API');
+      }
+
+      try {
+        const parsedData = JSON.parse(content);
+        return { success: true, data: parsedData };
+      } catch (parseError) {
+        const extractedData = this.extractMarketDataFromText(content);
+        return { success: true, data: extractedData };
+      }
+>>>>>>> dfa74fe6c9fc29bf7c76b775d708af73bbff812d
     } catch (error) {
       console.error('Groq AI Market Analysis Error:', error);
       return { 
@@ -276,6 +371,7 @@ Format as JSON with these fields:
   }
 
   static async generateInvestmentReport(propertyData: any): Promise<GroqAIResponse> {
+<<<<<<< HEAD
     if (!this.API_KEY) {
       return { 
         success: false, 
@@ -286,6 +382,9 @@ Format as JSON with these fields:
     try {
       this.resetModelIndex(); // Reset for fresh start
       
+=======
+    try {
+>>>>>>> dfa74fe6c9fc29bf7c76b775d708af73bbff812d
       const prompt = `Generate a comprehensive investment report for this property:
 
 Property: ${JSON.stringify(propertyData)}
@@ -312,6 +411,7 @@ Format as JSON with these fields:
   "actionItems": string[]
 }`;
 
+<<<<<<< HEAD
       // Try with different models if rate limited
       let lastError: Error | null = null;
       
@@ -385,6 +485,45 @@ Format as JSON with these fields:
         success: false, 
         error: lastError?.message || 'All models failed after trying all fallbacks' 
       };
+=======
+      const response = await fetch(`${this.BASE_URL}/chat/completions`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${this.API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: this.MODEL,
+          messages: [
+            {
+              role: 'user',
+              content: prompt
+            }
+          ],
+          temperature: 0.3,
+          max_tokens: 1200
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Groq API error: ${response.status}`);
+      }
+
+      const result = await response.json();
+      const content = result.choices[0]?.message?.content;
+      
+      if (!content) {
+        throw new Error('No content received from Groq API');
+      }
+
+      try {
+        const parsedData = JSON.parse(content);
+        return { success: true, data: parsedData };
+      } catch (parseError) {
+        const extractedData = this.extractReportDataFromText(content);
+        return { success: true, data: extractedData };
+      }
+>>>>>>> dfa74fe6c9fc29bf7c76b775d708af73bbff812d
     } catch (error) {
       console.error('Groq AI Report Generation Error:', error);
       return { 

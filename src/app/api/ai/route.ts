@@ -9,10 +9,14 @@ export async function POST(request: NextRequest) {
   try {
     const { action, data } = await request.json();
     
+<<<<<<< HEAD
     console.log('AI API Request:', { action, data });
     
     if (!action || !data) {
       console.log('Missing action or data:', { action, data });
+=======
+    if (!action || !data) {
+>>>>>>> dfa74fe6c9fc29bf7c76b775d708af73bbff812d
       return NextResponse.json(
         { error: 'Action and data are required' },
         { status: 400 }
@@ -33,28 +37,44 @@ export async function POST(request: NextRequest) {
 
     let result;
     
+<<<<<<< HEAD
     console.log('Processing action:', action);
     
     switch (action) {
       case 'analyzeRealEstateDeal':
         console.log('Calling analyzeRealEstateDeal');
+=======
+    switch (action) {
+      case 'analyzeDeal':
+>>>>>>> dfa74fe6c9fc29bf7c76b775d708af73bbff812d
         result = await GroqAIService.analyzeRealEstateDeal(data);
         break;
       
       case 'generateMarketInsights':
+<<<<<<< HEAD
         console.log('Calling generateMarketInsights');
+=======
+>>>>>>> dfa74fe6c9fc29bf7c76b775d708af73bbff812d
         result = await GroqAIService.generateMarketInsights(data);
         break;
       
       case 'generateInvestmentReport':
+<<<<<<< HEAD
         console.log('Calling generateInvestmentReport');
+=======
+>>>>>>> dfa74fe6c9fc29bf7c76b775d708af73bbff812d
         result = await GroqAIService.generateInvestmentReport(data);
         break;
       
       default:
+<<<<<<< HEAD
         console.log('Invalid action:', action);
         return NextResponse.json(
           { error: `Invalid action specified: ${action}` },
+=======
+        return NextResponse.json(
+          { error: 'Invalid action specified' },
+>>>>>>> dfa74fe6c9fc29bf7c76b775d708af73bbff812d
           { status: 400 }
         );
     }
