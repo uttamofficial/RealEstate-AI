@@ -9,7 +9,10 @@ export async function POST(request: NextRequest) {
   try {
     const { action, data } = await request.json();
     
+    console.log('AI API Request:', { action, data });
+    
     if (!action || !data) {
+      console.log('Missing action or data:', { action, data });
       return NextResponse.json(
         { error: 'Action and data are required' },
         { status: 400 }
@@ -30,22 +33,28 @@ export async function POST(request: NextRequest) {
 
     let result;
     
+    console.log('Processing action:', action);
+    
     switch (action) {
-      case 'analyzeDeal':
+      case 'analyzeRealEstateDeal':
+        console.log('Calling analyzeRealEstateDeal');
         result = await GroqAIService.analyzeRealEstateDeal(data);
         break;
       
       case 'generateMarketInsights':
+        console.log('Calling generateMarketInsights');
         result = await GroqAIService.generateMarketInsights(data);
         break;
       
       case 'generateInvestmentReport':
+        console.log('Calling generateInvestmentReport');
         result = await GroqAIService.generateInvestmentReport(data);
         break;
       
       default:
+        console.log('Invalid action:', action);
         return NextResponse.json(
-          { error: 'Invalid action specified' },
+          { error: `Invalid action specified: ${action}` },
           { status: 400 }
         );
     }

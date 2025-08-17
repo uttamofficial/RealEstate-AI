@@ -8,7 +8,36 @@ export interface GroqAIResponse {
 export class GroqAIService {
   private static readonly API_KEY = process.env.GROQ_API_KEY;
   private static readonly BASE_URL = "https://api.groq.com/openai/v1";
-  private static readonly MODEL = "compound-beta";
+  
+  // Preferred models in order with fallback
+  private static readonly PREFERRED_MODELS = [
+    "compound-beta",
+    "llama-3.3-70b-versatile", 
+    "deepseek-r1-distill-llama-70b",
+    "llama-3.1-8b-instant",
+    "qwen/qwen3-32b"
+  ];
+  
+  private static currentModelIndex = 0;
+
+  private static getCurrentModel(): string {
+    return this.PREFERRED_MODELS[this.currentModelIndex] || this.PREFERRED_MODELS[0];
+  }
+
+  private static switchToNextModel(): string | null {
+    this.currentModelIndex++;
+    if (this.currentModelIndex < this.PREFERRED_MODELS.length) {
+      console.log(`🔄 Switching to model: ${this.PREFERRED_MODELS[this.currentModelIndex]}`);
+      return this.PREFERRED_MODELS[this.currentModelIndex];
+    }
+    // Reset to first model if we've tried all
+    this.currentModelIndex = 0;
+    return null;
+  }
+
+  private static resetModelIndex(): void {
+    this.currentModelIndex = 0;
+  }
 
   static async analyzeRealEstateDeal(dealData: any): Promise<GroqAIResponse> {
     if (!this.API_KEY) {
@@ -19,6 +48,8 @@ export class GroqAIService {
     }
     
     try {
+      this.resetModelIndex(); // Reset for fresh start
+      
       const prompt = `Analyze this real estate deal and provide detailed insights:
 
 Property Details: ${dealData.description || 'N/A'}
@@ -45,45 +76,81 @@ Format the response as JSON with these exact field names:
   "analysis": string
 }`;
 
-      const response = await fetch(`${this.BASE_URL}/chat/completions`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${this.API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: this.MODEL,
-          messages: [
-            {
-              role: 'user',
-              content: prompt
-            }
-          ],
-          temperature: 0.3,
-          max_tokens: 1000
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error(`Groq API error: ${response.status}`);
-      }
-
-      const result = await response.json();
-      const content = result.choices[0]?.message?.content;
+      // Try with different models if rate limited
+      let lastError: Error | null = null;
       
-      if (!content) {
-        throw new Error('No content received from Groq API');
-      }
+      for (let attempt = 0; attempt < this.PREFERRED_MODELS.length; attempt++) {
+        try {
+          const currentModel = this.getCurrentModel();
+          console.log(`📤 Trying model: ${currentModel} (attempt ${attempt + 1})`);
+          
+          const response = await fetch(`${this.BASE_URL}/chat/completions`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${this.API_KEY}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              model: currentModel,
+              messages: [
+                {
+                  role: 'user',
+                  content: prompt
+                }
+              ],
+              temperature: 0.3,
+              max_tokens: 1000
+            })
+          });
 
-      // Try to parse JSON from the response
-      try {
-        const parsedData = JSON.parse(content);
-        return { success: true, data: parsedData };
-      } catch (parseError) {
-        // If JSON parsing fails, extract key information from text
-        const extractedData = this.extractDataFromText(content);
-        return { success: true, data: extractedData };
+          if (response.status === 429) {
+            console.log(`⏳ Rate limited by model ${currentModel}. Switching to next model...`);
+            this.switchToNextModel();
+            continue;
+          }
+
+          if (response.status === 400) {
+            console.log(`⚠️ Model ${currentModel} unavailable. Switching to next model...`);
+            this.switchToNextModel();
+            continue;
+          }
+
+          if (!response.ok) {
+            throw new Error(`Groq API error: ${response.status}`);
+          }
+
+          const result = await response.json();
+          const content = result.choices[0]?.message?.content;
+          
+          if (!content) {
+            throw new Error('No content received from Groq API');
+          }
+
+          // Try to parse JSON from the response
+          try {
+            const parsedData = JSON.parse(content);
+            console.log(`✅ Successfully used model: ${currentModel}`);
+            return { success: true, data: parsedData };
+          } catch (parseError) {
+            // If JSON parsing fails, extract key information from text
+            const extractedData = this.extractDataFromText(content);
+            return { success: true, data: extractedData };
+          }
+        } catch (error) {
+          lastError = error instanceof Error ? error : new Error(String(error));
+          console.log(`❌ Model ${this.getCurrentModel()} failed: ${lastError.message}`);
+          
+          // Try next model
+          this.switchToNextModel();
+        }
       }
+      
+      // If we get here, all models failed
+      console.error('❌ All models failed after trying all fallbacks');
+      return { 
+        success: false, 
+        error: lastError?.message || 'All models failed after trying all fallbacks' 
+      };
     } catch (error) {
       console.error('Groq AI Service Error:', error);
       return { 
@@ -102,6 +169,8 @@ Format the response as JSON with these exact field names:
     }
     
     try {
+      this.resetModelIndex(); // Reset for fresh start
+      
       const prompt = `Analyze this real estate market data and provide insights:
 
 Market Data: ${JSON.stringify(marketData)}
@@ -122,43 +191,81 @@ Format as JSON with these fields:
   "strategies": string[]
 }`;
 
-      const response = await fetch(`${this.BASE_URL}/chat/completions`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${this.API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: this.MODEL,
-          messages: [
-            {
-              role: 'user',
-              content: prompt
-            }
-          ],
-          temperature: 0.4,
-          max_tokens: 800
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error(`Groq API error: ${response.status}`);
-      }
-
-      const result = await response.json();
-      const content = result.choices[0]?.message?.content;
+      // Try with different models if rate limited
+      let lastError: Error | null = null;
       
-      if (!content) {
-        throw new Error('No content received from Groq API');
-      }
+      for (let attempt = 0; attempt < this.PREFERRED_MODELS.length; attempt++) {
+        try {
+          const currentModel = this.getCurrentModel();
+          console.log(`📤 Trying model: ${currentModel} (attempt ${attempt + 1})`);
+          
+          const response = await fetch(`${this.BASE_URL}/chat/completions`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${this.API_KEY}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              model: currentModel,
+              messages: [
+                {
+                  role: 'user',
+                  content: prompt
+                }
+              ],
+              temperature: 0.4,
+              max_tokens: 800
+            })
+          });
 
-      try {
-        const parsedData = JSON.parse(content);
-        return { success: true, data: parsedData };
-      } catch (parseError) {
-        const extractedData = this.extractMarketDataFromText(content);
-        return { success: true, data: extractedData };
+          if (response.status === 429) {
+            console.log(`⏳ Rate limited by model ${currentModel}. Switching to next model...`);
+            this.switchToNextModel();
+            continue;
+          }
+
+          if (response.status === 400) {
+            console.log(`⚠️ Model ${currentModel} unavailable. Switching to next model...`);
+            this.switchToNextModel();
+            continue;
+          }
+
+          if (!response.ok) {
+            throw new Error(`Groq API error: ${response.status}`);
+          }
+
+          const result = await response.json();
+          const content = result.choices[0]?.message?.content;
+      
+          if (!content) {
+            throw new Error('No content received from Groq API');
+          }
+
+          // Try to parse JSON from the response
+          try {
+            const parsedData = JSON.parse(content);
+            console.log(`✅ Successfully used model: ${currentModel}`);
+            return { success: true, data: parsedData };
+          } catch (parseError) {
+            // If JSON parsing fails, extract key information from text
+            const extractedData = this.extractMarketDataFromText(content);
+            return { success: true, data: extractedData };
+          }
+        } catch (error) {
+          lastError = error instanceof Error ? error : new Error(String(error));
+          console.log(`❌ Model ${this.getCurrentModel()} failed: ${lastError.message}`);
+          
+          // Try next model
+          this.switchToNextModel();
+        }
       }
+      
+      // If we get here, all models failed
+      console.error('❌ All models failed after trying all fallbacks');
+      return { 
+        success: false, 
+        error: lastError?.message || 'All models failed after trying all fallbacks' 
+      };
     } catch (error) {
       console.error('Groq AI Market Analysis Error:', error);
       return { 
@@ -177,6 +284,8 @@ Format as JSON with these fields:
     }
     
     try {
+      this.resetModelIndex(); // Reset for fresh start
+      
       const prompt = `Generate a comprehensive investment report for this property:
 
 Property: ${JSON.stringify(propertyData)}
@@ -203,43 +312,79 @@ Format as JSON with these fields:
   "actionItems": string[]
 }`;
 
-      const response = await fetch(`${this.BASE_URL}/chat/completions`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${this.API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: this.MODEL,
-          messages: [
-            {
-              role: 'user',
-              content: prompt
-            }
-          ],
-          temperature: 0.3,
-          max_tokens: 1200
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error(`Groq API error: ${response.status}`);
-      }
-
-      const result = await response.json();
-      const content = result.choices[0]?.message?.content;
+      // Try with different models if rate limited
+      let lastError: Error | null = null;
       
-      if (!content) {
-        throw new Error('No content received from Groq API');
-      }
+      for (let attempt = 0; attempt < this.PREFERRED_MODELS.length; attempt++) {
+        try {
+          const currentModel = this.getCurrentModel();
+          console.log(`📤 Trying model: ${currentModel} (attempt ${attempt + 1})`);
+          
+          const response = await fetch(`${this.BASE_URL}/chat/completions`, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${this.API_KEY}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              model: currentModel,
+              messages: [
+                {
+                  role: 'user',
+                  content: prompt
+                }
+              ],
+              temperature: 0.3,
+              max_tokens: 1200
+            })
+          });
 
-      try {
-        const parsedData = JSON.parse(content);
-        return { success: true, data: parsedData };
-      } catch (parseError) {
-        const extractedData = this.extractReportDataFromText(content);
-        return { success: true, data: extractedData };
+          if (response.status === 429) {
+            console.log(`⏳ Rate limited by model ${currentModel}. Switching to next model...`);
+            this.switchToNextModel();
+            continue;
+          }
+
+          if (response.status === 400) {
+            console.log(`⚠️ Model ${currentModel} unavailable. Switching to next model...`);
+            this.switchToNextModel();
+            continue;
+          }
+
+          if (!response.ok) {
+            throw new Error(`Groq API error: ${response.status}`);
+          }
+
+          const result = await response.json();
+          const content = result.choices[0]?.message?.content;
+          
+          if (!content) {
+            throw new Error('No content received from Groq API');
+          }
+
+          try {
+            const parsedData = JSON.parse(content);
+            console.log(`✅ Successfully used model: ${currentModel}`);
+            return { success: true, data: parsedData };
+          } catch (parseError) {
+            const extractedData = this.extractReportDataFromText(content);
+            return { success: true, data: extractedData };
+          }
+        } catch (error) {
+          lastError = error instanceof Error ? error : new Error(String(error));
+          console.log(`❌ Model ${this.getCurrentModel()} failed: ${lastError.message}`);
+          
+          // Try next model
+          this.switchToNextModel();
+        }
       }
+      
+      // If we get here, all models failed
+      console.error('❌ All models failed after trying all fallbacks');
+      return { 
+        success: false, 
+        error: lastError?.message || 'All models failed after trying all fallbacks' 
+      };
     } catch (error) {
       console.error('Groq AI Report Generation Error:', error);
       return { 

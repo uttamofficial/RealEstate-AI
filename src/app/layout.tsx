@@ -5,6 +5,7 @@ import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 import Footer from '@/components/layout/footer';
 import AuthHeader from '@/components/auth/auth-header';
+import "maplibre-gl/dist/maplibre-gl.css"; 
 
 export const metadata: Metadata = {
   title: 'RealEstate AI',
