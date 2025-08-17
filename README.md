@@ -3,7 +3,7 @@
 A cutting-edge, futuristic real estate investment platform powered by artificial intelligence, featuring comprehensive analytics, property management, and market intelligence tools.
 
 ## ✨ **Live Demo**
-**Production URL:** https://real-estate-iq51mkahs-uk1619s-projects.vercel.app
+**Production URL:** https://real-estate-ai-ochre.vercel.app/
 
 ## 🚀 **Key Features**
 
