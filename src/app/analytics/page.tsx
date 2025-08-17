@@ -102,25 +102,25 @@ export default function AnalyticsPage() {
   const COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#06B6D4'];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#312e81] dark:from-[#0a0a23] dark:via-[#1e1e3f] dark:to-[#2d1a4a]">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50 dark:from-[#0f172a] dark:via-[#1e293b] dark:to-[#312e81]">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Enhanced Page Header */}
         <div className="mb-10">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
             <div>
-              <h1 className="text-5xl font-extrabold tracking-tight bg-gradient-to-r from-cyan-400 via-blue-500 to-fuchsia-500 dark:from-white dark:via-blue-200 dark:to-fuchsia-400 bg-clip-text text-transparent animate-gradient-move">
+              <h1 className="text-5xl font-extrabold tracking-tight bg-gradient-to-r from-cyan-600 via-blue-600 to-fuchsia-600 dark:from-cyan-400 dark:via-blue-500 dark:to-fuchsia-500 bg-clip-text text-transparent animate-gradient-move">
                 Portfolio Analytics
               </h1>
-              <p className="text-slate-400 dark:text-slate-300 mt-3 text-lg font-medium max-w-xl">
+              <p className="text-slate-600 dark:text-slate-300 mt-3 text-lg font-medium max-w-xl">
                 AI-powered insights and comprehensive analysis of your real estate portfolio performance
               </p>
             </div>
             <div className="flex items-center gap-3">
-              <Button variant="outline" size="sm" className="border-slate-400 dark:border-slate-700 hover:shadow-neon-cyan">
+              <Button variant="outline" size="sm" className="border-slate-500 dark:border-slate-700 hover:shadow-neon-cyan">
                 <Download className="w-4 h-4 mr-2" />
                 Export Report
               </Button>
-              <Button variant="outline" size="sm" className="border-slate-400 dark:border-slate-700 hover:shadow-neon-pink">
+              <Button variant="outline" size="sm" className="border-slate-500 dark:border-slate-700 hover:shadow-neon-pink">
                 <Share2 className="w-4 h-4 mr-2" />
                 Share
               </Button>
@@ -138,9 +138,9 @@ export default function AnalyticsPage() {
 
           {/* AI Insights Banner */}
           {aiInsights && (
-            <div className="mt-6 p-4 bg-gradient-to-r from-cyan-50/30 to-fuchsia-50/30 dark:from-cyan-900/20 dark:to-fuchsia-900/20 rounded-2xl border border-cyan-200/30 dark:border-fuchsia-700/30">
+            <div className="mt-6 p-4 bg-gradient-to-r from-cyan-100 to-fuchsia-100 dark:from-cyan-50/30 dark:to-fuchsia-50/30 rounded-2xl border border-cyan-200 dark:border-cyan-200/30">
               <div className="flex items-start gap-3">
-                <Brain className="w-6 h-6 text-cyan-500 mt-1 flex-shrink-0" />
+                <Brain className="w-6 h-6 text-cyan-600 dark:text-cyan-500 mt-1 flex-shrink-0" />
                 <div>
                   <h3 className="font-semibold text-cyan-800 dark:text-cyan-200 mb-1">AI Market Analysis</h3>
                   <p className="text-slate-700 dark:text-slate-300">{aiInsights}</p>
@@ -152,7 +152,7 @@ export default function AnalyticsPage() {
 
         {/* Enhanced Key Performance Indicators */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-          <Card className="bg-white/20 dark:bg-slate-900/40 border-0 shadow-2xl backdrop-blur-2xl border-cyan-200/20 dark:border-fuchsia-700/20 rounded-2xl hover:shadow-neon-cyan transition-all duration-300">
+          <Card className="bg-white/90 dark:bg-white/20 border-0 shadow-2xl backdrop-blur-2xl border-cyan-200 dark:border-cyan-200/20 rounded-2xl hover:shadow-neon-cyan transition-all duration-300">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -165,12 +165,12 @@ export default function AnalyticsPage() {
               </div>
               <div className="flex items-center mt-3">
                 <span className="text-lg font-semibold text-green-600">+12.5%</span>
-                <span className="text-sm text-slate-500 dark:text-slate-400 ml-2">from last month</span>
+                <span className="text-sm text-slate-600 dark:text-slate-500 ml-2">from last month</span>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-white/20 dark:bg-slate-900/40 border-0 shadow-2xl backdrop-blur-2xl border-blue-200/20 dark:border-blue-700/20 rounded-2xl hover:shadow-neon-blue transition-all duration-300">
+          <Card className="bg-white/90 dark:bg-white/20 border-0 shadow-2xl backdrop-blur-2xl border-blue-200 dark:border-blue-200/20 rounded-2xl hover:shadow-neon-blue transition-all duration-300">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
@@ -183,12 +183,12 @@ export default function AnalyticsPage() {
               </div>
               <div className="flex items-center mt-3">
                 <span className="text-lg font-semibold text-green-600">+8.2%</span>
-                <span className="text-sm text-slate-500 dark:text-slate-400 ml-2">from last month</span>
+                <span className="text-sm text-slate-600 dark:text-slate-500 ml-2">from last month</span>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-white/20 dark:bg-slate-900/40 border-0 shadow-2xl backdrop-blur-2xl border-purple-200/20 dark:border-purple-700/20 rounded-2xl hover:shadow-neon-purple transition-all duration-300">
+          <Card className="bg-white/90 dark:bg-white/20 border-0 shadow-2xl backdrop-blur-2xl border-purple-200 dark:border-purple-200/20 rounded-2xl hover:shadow-neon-purple transition-all duration-300">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>

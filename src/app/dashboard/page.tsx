@@ -128,7 +128,7 @@ export default function DashboardPage() {
     <div className={`min-h-screen transition-all duration-500 ${
       isFullscreen 
         ? 'bg-black' 
-        : 'bg-gradient-to-br from-[#0a0a0a] via-[#1a1a2e] to-[#16213e] dark:from-[#000000] dark:via-[#0f0f23] dark:to-[#1a1a3f]'
+        : 'bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50 dark:from-[#0a0a0a] dark:via-[#1a1a2e] dark:to-[#16213e]'
     }`}>
       <div className={`container mx-auto px-4 sm:px-6 lg:px-8 py-8 transition-all duration-500 ${
         isFullscreen ? 'max-w-none' : ''
@@ -137,10 +137,10 @@ export default function DashboardPage() {
         <div className="mb-8">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
             <div>
-              <h1 className="text-6xl font-black tracking-tight bg-gradient-to-r from-cyan-400 via-blue-500 to-fuchsia-500 dark:from-white dark:via-blue-200 dark:to-fuchsia-400 bg-clip-text text-transparent animate-pulse">
+              <h1 className="text-6xl font-black tracking-tight bg-gradient-to-r from-cyan-600 via-blue-600 to-fuchsia-600 dark:from-cyan-400 dark:via-blue-500 dark:to-fuchsia-500 bg-clip-text text-transparent animate-pulse">
                 COMMAND CENTER
               </h1>
-              <p className="text-slate-400 dark:text-slate-300 mt-3 text-xl font-medium max-w-2xl">
+              <p className="text-slate-600 dark:text-slate-300 mt-3 text-xl font-medium max-w-2xl">
                 AI-Powered Real Estate Investment Command Center • Real-time Portfolio Intelligence
               </p>
             </div>
@@ -148,7 +148,7 @@ export default function DashboardPage() {
               <Button 
                 variant="outline" 
                 size="sm" 
-                className="border-cyan-400/30 dark:border-cyan-600/30 hover:bg-cyan-500/20 text-cyan-400 hover:text-cyan-300"
+                className="border-cyan-500/50 dark:border-cyan-400/30 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300"
                 onClick={() => setIsFullscreen(!isFullscreen)}
               >
                 {isFullscreen ? <Minimize2 className="w-4 h-4 mr-2" /> : <Maximize2 className="w-4 h-4 mr-2" />}
@@ -157,7 +157,7 @@ export default function DashboardPage() {
               <Button 
                 variant="outline" 
                 size="sm" 
-                className="border-fuchsia-400/30 dark:border-fuchsia-600/30 hover:bg-fuchsia-500/20 text-fuchsia-400 hover:text-fuchsia-300"
+                className="border-fuchsia-500/50 dark:border-fuchsia-400/30 hover:bg-fuchsia-500/20 text-fuchsia-600 dark:text-fuchsia-400 hover:text-fuchsia-700 dark:hover:text-fuchsia-300"
                 onClick={getAiInsights}
                 disabled={isLoading}
               >
@@ -168,30 +168,30 @@ export default function DashboardPage() {
           </div>
           
           {/* System Status Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
             {Object.entries(systemStatus).map(([key, status]) => (
-              <div key={key} className="bg-black/40 dark:bg-slate-900/40 backdrop-blur-xl rounded-xl p-4 border border-cyan-500/20 dark:border-fuchsia-700/20">
+              <div key={key} className="bg-white border-2 border-cyan-300 dark:bg-black/40 dark:border-cyan-500/20 backdrop-blur-xl rounded-xl p-4 shadow-xl dark:shadow-none">
                 <div className="flex items-center space-x-3">
                   <span className={`text-2xl ${getStatusColor(status)}`}>{getStatusIcon(status)}</span>
                   <div>
-                    <p className="text-xs text-slate-400 dark:text-slate-500 uppercase tracking-wider">{key}</p>
+                    <p className="text-xs text-slate-700 dark:text-slate-400 uppercase tracking-wider">{key}</p>
                     <p className={`text-sm font-bold ${getStatusColor(status)}`}>{status}</p>
-              </div>
-            </div>
+                  </div>
+                </div>
               </div>
             ))}
             </div>
 
           {/* AI Insights Banner */}
           {aiInsights && (
-            <div className="mt-6 p-6 bg-gradient-to-r from-cyan-900/30 to-fuchsia-900/30 dark:from-cyan-900/20 dark:to-fuchsia-900/20 rounded-2xl border border-cyan-500/30 dark:border-fuchsia-700/30 backdrop-blur-xl">
+            <div className="mt-6 p-6 bg-gradient-to-r from-cyan-100 to-fuchsia-100 dark:from-cyan-900/30 dark:to-fuchsia-900/30 rounded-2xl border border-cyan-200 dark:border-cyan-500/30 backdrop-blur-xl">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-fuchsia-500 rounded-full flex items-center justify-center">
                   <Brain className="w-6 h-6 text-white" />
               </div>
                 <div className="flex-1">
-                  <h3 className="font-bold text-cyan-300 dark:text-cyan-200 mb-2 text-lg">AI Market Analysis</h3>
-                  <p className="text-slate-300 dark:text-slate-200 text-base leading-relaxed">{aiInsights}</p>
+                  <h3 className="font-bold text-cyan-700 dark:text-cyan-300 mb-2 text-lg">AI Market Analysis</h3>
+                  <p className="text-slate-700 dark:text-slate-300 text-base leading-relaxed">{aiInsights}</p>
             </div>
                 <Button 
                   size="sm" 
@@ -208,20 +208,20 @@ export default function DashboardPage() {
 
         {/* Enhanced Navigation Tabs */}
         <Tabs value={selectedView} onValueChange={setSelectedView} className="w-full mb-8">
-          <TabsList className="grid w-full grid-cols-5 bg-black/40 dark:bg-slate-900/40 backdrop-blur-xl border border-cyan-500/20 dark:border-fuchsia-700/20 rounded-2xl p-1">
-            <TabsTrigger value="overview" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/20 data-[state=active]:to-blue-500/20 text-cyan-300">
+          <TabsList className="grid w-full grid-cols-5 bg-white/80 dark:bg-black/40 backdrop-blur-xl border border-cyan-200 dark:border-cyan-500/20 shadow-lg dark:shadow-none rounded-2xl p-1">
+            <TabsTrigger value="overview" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500/20 data-[state=active]:to-blue-500/20 text-cyan-700 dark:text-cyan-300">
               🚀 Overview
             </TabsTrigger>
-            <TabsTrigger value="portfolio" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500/20 data-[state=active]:to-purple-500/20 text-blue-300">
+            <TabsTrigger value="portfolio" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500/20 data-[state=active]:to-purple-500/20 text-blue-700 dark:text-blue-300">
               📊 Portfolio
             </TabsTrigger>
-            <TabsTrigger value="markets" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500/20 data-[state=active]:to-pink-500/20 text-purple-300">
+            <TabsTrigger value="markets" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500/20 data-[state=active]:to-pink-500/20 text-purple-700 dark:text-purple-300">
               🌍 Markets
             </TabsTrigger>
-            <TabsTrigger value="ai" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/20 data-[state=active]:to-red-500/20 text-pink-300">
+            <TabsTrigger value="ai" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500/20 data-[state=active]:to-red-500/20 text-pink-700 dark:text-pink-300">
               🤖 AI Hub
             </TabsTrigger>
-            <TabsTrigger value="tools" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-red-500/20 data-[state=active]:to-orange-500/20 text-red-300">
+            <TabsTrigger value="tools" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-red-500/20 data-[state=active]:to-orange-500/20 text-red-700 dark:text-red-300">
               🛠️ Tools
             </TabsTrigger>
           </TabsList>
@@ -229,70 +229,70 @@ export default function DashboardPage() {
           {/* Overview Tab */}
           <TabsContent value="overview" className="mt-6">
             {/* Key Performance Indicators */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-              <Card className="bg-black/40 dark:bg-slate-900/40 border-0 shadow-2xl backdrop-blur-2xl border-cyan-500/20 dark:border-cyan-700/20 rounded-2xl hover:shadow-cyan-500/25 transition-all duration-300 group">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+              <Card className="bg-white border-2 border-cyan-300 dark:bg-black/40 dark:border-cyan-500/20 shadow-xl dark:shadow-2xl rounded-2xl hover:shadow-cyan-400/50 dark:hover:shadow-cyan-500/25 transition-all duration-300 group">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-slate-400 dark:text-slate-400">Total Portfolio Value</p>
-                      <p className="text-3xl font-bold text-cyan-400 dark:text-cyan-300">$2.48M</p>
+                      <p className="text-sm font-medium text-slate-700 dark:text-slate-400">Total Portfolio Value</p>
+                      <p className="text-3xl font-bold text-cyan-700 dark:text-cyan-400">$2.48M</p>
                     </div>
                     <div className="p-3 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-full shadow-lg group-hover:scale-110 transition-transform">
                       <TrendingUp className="w-6 h-6 text-white" />
                     </div>
                   </div>
                   <div className="flex items-center mt-3">
-                    <span className="text-lg font-semibold text-green-400">+12.5%</span>
-                    <span className="text-sm text-slate-400 dark:text-slate-400 ml-2">from last month</span>
+                    <span className="text-lg font-semibold text-green-700 dark:text-green-400">+12.5%</span>
+                    <span className="text-sm text-slate-700 dark:text-slate-400 ml-2">from last month</span>
                   </div>
-                  <Progress value={75} className="mt-3 h-2 bg-slate-700" />
+                  <Progress value={75} className="mt-3 h-2 bg-slate-300 dark:bg-slate-700" />
                 </CardContent>
               </Card>
 
-              <Card className="bg-black/40 dark:bg-slate-900/40 border-0 shadow-2xl backdrop-blur-2xl border-blue-500/20 dark:border-blue-700/20 rounded-2xl hover:shadow-blue-500/25 transition-all duration-300 group">
+              <Card className="bg-white border-2 border-blue-300 dark:bg-black/40 dark:border-blue-500/20 shadow-xl dark:shadow-2xl rounded-2xl hover:shadow-blue-400/50 dark:hover:shadow-blue-500/25 transition-all duration-300 group">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-slate-400 dark:text-slate-400">Active Properties</p>
-                      <p className="text-3xl font-bold text-blue-400 dark:text-blue-300">20</p>
+                      <p className="text-sm font-medium text-slate-700 dark:text-slate-400">Active Properties</p>
+                      <p className="text-3xl font-bold text-blue-700 dark:text-blue-400">20</p>
                     </div>
                     <div className="p-3 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full shadow-lg group-hover:scale-110 transition-transform">
                       <Home className="w-6 h-6 text-white" />
                     </div>
               </div>
                   <div className="flex items-center mt-3">
-                    <span className="text-lg font-semibold text-green-400">+20.0%</span>
-                    <span className="text-sm text-slate-400 dark:text-slate-400 ml-2">this quarter</span>
+                    <span className="text-lg font-semibold text-green-700 dark:text-green-400">+20.0%</span>
+                    <span className="text-sm text-slate-700 dark:text-slate-400 ml-2">this quarter</span>
               </div>
-                  <Progress value={80} className="mt-3 h-2 bg-slate-700" />
+                  <Progress value={80} className="mt-3 h-2 bg-slate-300 dark:bg-slate-700" />
             </CardContent>
           </Card>
 
-              <Card className="bg-black/40 dark:bg-slate-900/40 border-0 shadow-2xl backdrop-blur-2xl border-purple-500/20 dark:border-purple-700/20 rounded-2xl hover:shadow-purple-500/25 transition-all duration-300 group">
+              <Card className="bg-white border-2 border-purple-300 dark:bg-black/40 dark:border-purple-500/20 shadow-xl dark:shadow-2xl rounded-2xl hover:shadow-purple-400/50 dark:hover:shadow-purple-500/25 transition-all duration-300 group">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-slate-400 dark:text-slate-400">Monthly Cash Flow</p>
-                      <p className="text-3xl font-bold text-purple-400 dark:text-purple-300">$24.5K</p>
+                      <p className="text-sm font-medium text-slate-700 dark:text-slate-400">Monthly Cash Flow</p>
+                      <p className="text-3xl font-bold text-purple-700 dark:text-purple-400">$24.5K</p>
                     </div>
                     <div className="p-3 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full shadow-lg group-hover:scale-110 transition-transform">
                       <DollarSign className="w-6 h-6 text-white" />
                     </div>
               </div>
                   <div className="flex items-center mt-3">
-                    <span className="text-lg font-semibold text-green-400">+8.2%</span>
-                    <span className="text-sm text-slate-400 dark:text-slate-400 ml-2">from last month</span>
+                    <span className="text-lg font-semibold text-green-700 dark:text-green-400">+8.2%</span>
+                    <span className="text-sm text-slate-700 dark:text-slate-400 ml-2">from last month</span>
               </div>
-                  <Progress value={82} className="mt-3 h-2 bg-slate-700" />
+                  <Progress value={82} className="mt-3 h-2 bg-slate-300 dark:bg-slate-700" />
             </CardContent>
           </Card>
 
-              <Card className="bg-black/40 dark:bg-slate-900/40 border-0 shadow-2xl backdrop-blur-2xl border-orange-500/20 dark:border-orange-700/20 rounded-2xl hover:shadow-orange-500/25 transition-all duration-300 group">
+              <Card className="bg-white border-2 border-orange-300 dark:bg-black/40 dark:border-orange-500/20 shadow-xl dark:shadow-2xl rounded-2xl hover:shadow-orange-400/50 dark:hover:shadow-orange-500/25 transition-all duration-300 group">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm font-medium text-slate-400 dark:text-slate-400">Average ROI</p>
-                      <p className="text-3xl font-bold text-orange-400 dark:text-orange-300">20.1%</p>
+                      <p className="text-sm font-medium text-slate-700 dark:text-slate-400">Average ROI</p>
+                      <p className="text-3xl font-bold text-orange-700 dark:text-orange-400">20.1%</p>
                     </div>
                     <div className="p-3 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full shadow-lg group-hover:scale-110 transition-transform">
                       <Target className="w-6 h-6 text-white" />

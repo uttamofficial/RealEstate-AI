@@ -328,7 +328,7 @@ export default function PropertiesPage() {
     <div className={`min-h-screen transition-all duration-500 ${
       isFullscreen 
         ? 'bg-black' 
-        : 'bg-gradient-to-br from-[#0a0a0a] via-[#1a1a2e] to-[#16213e] dark:from-[#000000] dark:via-[#0f0f23] dark:to-[#1a1a3f]'
+        : 'bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50 dark:from-[#0a0a0a] dark:via-[#1a1a2e] dark:to-[#16213e]'
     }`}>
       <div className={`container mx-auto px-4 sm:px-6 lg:px-8 py-8 transition-all duration-500 ${
         isFullscreen ? 'max-w-none' : ''
@@ -337,10 +337,10 @@ export default function PropertiesPage() {
         <div className="mb-8">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
             <div>
-              <h1 className="text-6xl font-black tracking-tight bg-gradient-to-r from-cyan-400 via-blue-500 to-fuchsia-500 dark:from-white dark:via-blue-200 dark:to-fuchsia-400 bg-clip-text text-transparent animate-pulse">
+              <h1 className="text-6xl font-black tracking-tight bg-gradient-to-r from-cyan-600 via-blue-600 to-fuchsia-600 dark:from-cyan-400 dark:via-blue-500 dark:to-fuchsia-500 bg-clip-text text-transparent animate-pulse">
                 PROPERTY COMMAND CENTER
               </h1>
-              <p className="text-slate-400 dark:text-slate-300 mt-3 text-xl font-medium max-w-2xl">
+              <p className="text-slate-600 dark:text-slate-300 mt-3 text-xl font-medium max-w-2xl">
                 AI-Powered Real Estate Portfolio Management • Quantum Investment Intelligence
               </p>
             </div>
@@ -348,7 +348,7 @@ export default function PropertiesPage() {
               <Button 
                 variant="outline" 
                 size="sm" 
-                className="border-cyan-400/30 dark:border-cyan-600/30 hover:bg-cyan-500/20 text-cyan-400 hover:text-cyan-300"
+                className="border-cyan-500/50 dark:border-cyan-400/30 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300"
                 onClick={() => setIsFullscreen(!isFullscreen)}
               >
                 {isFullscreen ? <Minimize2 className="w-4 h-4 mr-2" /> : <Maximize2 className="w-4 h-4 mr-2" />}
@@ -357,7 +357,7 @@ export default function PropertiesPage() {
               <Button 
                 variant="outline" 
                 size="sm" 
-                className="border-fuchsia-400/30 dark:border-fuchsia-600/30 hover:bg-fuchsia-500/20 text-fuchsia-400 hover:text-fuchsia-300"
+                className="border-fuchsia-500/50 dark:border-fuchsia-400/30 hover:bg-fuchsia-500/20 text-fuchsia-600 dark:text-fuchsia-400 hover:text-fuchsia-700 dark:hover:text-fuchsia-300"
                 onClick={getAiInsights}
                 disabled={isLoading}
               >
@@ -377,11 +377,11 @@ export default function PropertiesPage() {
           {/* System Status Grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
             {Object.entries(systemStatus).map(([key, status]) => (
-              <div key={key} className="bg-black/40 dark:bg-slate-900/40 backdrop-blur-xl rounded-xl p-4 border border-cyan-500/20 dark:border-fuchsia-700/20">
+              <div key={key} className="bg-white/80 dark:bg-black/40 backdrop-blur-xl rounded-xl p-4 border border-cyan-200 dark:border-cyan-500/20 shadow-lg dark:shadow-none">
                 <div className="flex items-center space-x-3">
                   <span className={`text-2xl ${getStatusColor(status)}`}>{getStatusIcon(status)}</span>
                   <div>
-                    <p className="text-xs text-slate-400 dark:text-slate-500 uppercase tracking-wider">{key}</p>
+                    <p className="text-xs text-slate-600 dark:text-slate-400 uppercase tracking-wider">{key}</p>
                     <p className={`text-sm font-bold ${getStatusColor(status)}`}>{status}</p>
                   </div>
                 </div>
@@ -391,14 +391,14 @@ export default function PropertiesPage() {
 
           {/* AI Insights Banner */}
           {aiInsights && (
-            <div className="mt-6 p-6 bg-gradient-to-r from-cyan-900/30 to-fuchsia-900/30 dark:from-cyan-900/20 dark:to-fuchsia-900/20 rounded-2xl border border-cyan-500/30 dark:border-fuchsia-700/30 backdrop-blur-xl">
+            <div className="mt-6 p-6 bg-gradient-to-r from-cyan-100 to-fuchsia-100 dark:from-cyan-900/30 dark:to-fuchsia-900/30 rounded-2xl border border-cyan-200 dark:border-cyan-500/30 backdrop-blur-xl">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-fuchsia-500 rounded-full flex items-center justify-center">
                   <Brain className="w-6 h-6 text-white" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-bold text-cyan-300 dark:text-cyan-200 mb-2 text-lg">AI Market Analysis</h3>
-                  <p className="text-slate-300 dark:text-slate-200 text-base leading-relaxed">{aiInsights}</p>
+                  <h3 className="font-bold text-cyan-700 dark:text-cyan-300 mb-2 text-lg">AI Market Analysis</h3>
+                  <p className="text-slate-700 dark:text-slate-300 text-base leading-relaxed">{aiInsights}</p>
                 </div>
                 <Button 
                   size="sm" 
@@ -512,22 +512,22 @@ export default function PropertiesPage() {
             <TabsContent value="grid" className="mt-6">
         {/* Enhanced Filters and Search */}
         <div className="mb-8">
-                <Card className="bg-black/40 dark:bg-slate-900/40 border-0 shadow-2xl backdrop-blur-2xl border-cyan-500/20 dark:border-cyan-700/20 rounded-2xl">
-                  <CardHeader className="border-b border-cyan-500/20 dark:border-cyan-700/20">
+                <Card className="bg-white border-2 border-cyan-300 dark:bg-black/40 dark:border-cyan-500/20 shadow-xl dark:shadow-2xl rounded-2xl">
+                  <CardHeader className="border-b border-cyan-300 dark:border-cyan-500/20">
               <div className="flex items-center justify-between">
                 <div>
-                        <CardTitle className="text-cyan-300 dark:text-cyan-200 flex items-center">
-                          <Filter className="w-5 h-5 mr-2 text-cyan-400" />
+                        <CardTitle className="text-cyan-700 dark:text-cyan-300 flex items-center">
+                          <Filter className="w-5 h-5 mr-2 text-cyan-600 dark:text-cyan-400" />
                           Quantum Filters
                   </CardTitle>
-                        <CardDescription className="text-slate-400">AI-powered property discovery and filtering</CardDescription>
+                        <CardDescription className="text-slate-600 dark:text-slate-400">AI-powered property discovery and filtering</CardDescription>
                 </div>
                 <div className="flex items-center space-x-2">
-                        <Button variant="ghost" size="sm" className="text-cyan-300 hover:bg-cyan-500/20">
+                        <Button variant="ghost" size="sm" className="text-cyan-700 dark:text-cyan-300 hover:bg-cyan-500/20">
                     <RefreshCw className="w-4 h-4 mr-2" />
                     Reset
                   </Button>
-                        <Button variant="ghost" size="sm" className="text-cyan-300 hover:bg-cyan-500/20">
+                        <Button variant="ghost" size="sm" className="text-cyan-700 dark:text-cyan-300 hover:bg-cyan-500/20">
                     <Settings className="w-4 h-4 mr-2" />
                     Save Filters
                   </Button>
@@ -537,88 +537,88 @@ export default function PropertiesPage() {
             <CardContent className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                 <div>
-                        <label className="block text-sm font-medium text-slate-300 dark:text-slate-300 mb-2">
+                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                     Property Type
                   </label>
                   <div className="relative">
-                        <select className="w-full p-3 pr-10 border border-cyan-500/50 dark:border-cyan-400/50 rounded-lg bg-slate-800/90 dark:bg-slate-700/90 text-white dark:text-white focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 transition-all duration-200 shadow-lg backdrop-blur-sm">
-                      <option className="bg-slate-700 text-white hover:bg-slate-600">All Types</option>
-                      <option className="bg-slate-700 text-white hover:bg-slate-600">Single Family</option>
-                      <option className="bg-slate-700 text-white hover:bg-slate-600">Condo</option>
-                      <option className="bg-slate-700 text-white hover:bg-slate-600">Multi-Family</option>
-                      <option className="bg-slate-700 text-white hover:bg-slate-600">Luxury</option>
-                      <option className="bg-slate-700 text-white hover:bg-slate-600">Townhouse</option>
-                      <option className="bg-slate-700 text-white hover:bg-slate-600">Vacation</option>
-                      <option className="bg-slate-700 text-white hover:bg-slate-600">Loft</option>
-                      <option className="bg-slate-700 text-white hover:bg-slate-600">Estate</option>
-                      <option className="bg-slate-700 text-white hover:bg-slate-600">Apartment</option>
+                        <select className="w-full p-3 pr-10 border-2 border-cyan-400 dark:border-cyan-400/50 rounded-lg bg-white dark:bg-slate-700/90 text-slate-800 dark:text-white focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all duration-200 shadow-lg">
+                      <option className="bg-white text-slate-800 dark:bg-slate-700 dark:text-white">All Types</option>
+                      <option className="bg-white text-slate-800 dark:bg-slate-700 dark:text-white">Single Family</option>
+                      <option className="bg-white text-slate-800 dark:bg-slate-700 dark:text-white">Condo</option>
+                      <option className="bg-white text-slate-800 dark:bg-slate-700 dark:text-white">Multi-Family</option>
+                      <option className="bg-white text-slate-800 dark:bg-slate-700 dark:text-white">Luxury</option>
+                      <option className="bg-white text-slate-800 dark:bg-slate-700 dark:text-white">Townhouse</option>
+                      <option className="bg-slate-800 dark:bg-slate-700 dark:text-white">Vacation</option>
+                      <option className="bg-white text-slate-800 dark:bg-slate-700 dark:text-white">Loft</option>
+                      <option className="bg-white text-slate-800 dark:bg-slate-700 dark:text-white">Estate</option>
+                      <option className="bg-white text-slate-800 dark:bg-slate-700 dark:text-white">Apartment</option>
                     </select>
                     <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                      <div className="w-2.5 h-2.5 border-r-2 border-b-2 border-cyan-400 transform rotate-45"></div>
+                      <div className="w-2.5 h-2.5 border-r-2 border-b-2 border-cyan-500 transform rotate-45"></div>
                     </div>
                   </div>
                 </div>
                 <div>
-                        <label className="block text-sm font-medium text-slate-300 dark:text-slate-300 mb-2">
+                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                     Status
                   </label>
                   <div className="relative">
-                        <select className="w-full p-3 pr-10 border border-cyan-500/50 dark:border-cyan-400/50 rounded-lg bg-slate-800/90 dark:bg-slate-700/90 text-white dark:text-white focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 transition-all duration-200 shadow-lg backdrop-blur-sm">
-                      <option className="bg-slate-700 text-white hover:bg-slate-600">All Status</option>
-                      <option className="bg-slate-700 text-white hover:bg-slate-600">Active</option>
-                      <option className="bg-slate-700 text-white hover:bg-slate-600">Rented</option>
-                      <option className="bg-slate-700 text-white hover:bg-slate-600">Under Renovation</option>
-                      <option className="bg-slate-700 text-white hover:bg-slate-600">Sold</option>
+                        <select className="w-full p-3 pr-10 border-2 border-cyan-400 dark:border-cyan-400/50 rounded-lg bg-white dark:bg-slate-700/90 text-slate-800 dark:text-white focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all duration-200 shadow-lg">
+                      <option className="bg-white text-slate-800 dark:bg-slate-700 dark:text-white">All Status</option>
+                      <option className="bg-white text-slate-800 dark:bg-slate-700 dark:text-white">Active</option>
+                      <option className="bg-white text-slate-800 dark:bg-slate-700 dark:text-white">Rented</option>
+                      <option className="bg-white text-slate-800 dark:bg-slate-700 dark:text-white">Under Renovation</option>
+                      <option className="bg-white text-slate-800 dark:bg-slate-700 dark:text-white">Sold</option>
                     </select>
                     <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                      <div className="w-2.5 h-2.5 border-r-2 border-b-2 border-cyan-400 transform rotate-45"></div>
+                      <div className="w-2.5 h-2.5 border-r-2 border-b-2 border-cyan-500 transform rotate-45"></div>
                     </div>
                   </div>
                 </div>
                 <div>
-                        <label className="block text-sm font-medium text-slate-300 dark:text-slate-300 mb-2">
+                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                     ROI Range
                   </label>
                   <div className="relative">
-                        <select className="w-full p-3 pr-10 border border-cyan-500/50 dark:border-cyan-400/50 rounded-lg bg-slate-800/90 dark:bg-slate-700/90 text-white dark:text-white focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 transition-all duration-200 shadow-lg backdrop-blur-sm">
-                      <option className="bg-slate-700 text-white hover:bg-slate-600">All ROI</option>
-                      <option className="bg-slate-700 text-white hover:bg-slate-600">15%+</option>
-                      <option className="bg-slate-700 text-white hover:bg-slate-600">20%+</option>
-                      <option className="bg-slate-700 text-white hover:bg-slate-600">25%+</option>
-                      <option className="bg-slate-700 text-white hover:bg-slate-600">30%+</option>
+                        <select className="w-full p-3 pr-10 border-2 border-cyan-400 dark:border-cyan-400/50 rounded-lg bg-white dark:bg-slate-700/90 text-slate-800 dark:text-white focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all duration-200 shadow-lg">
+                      <option className="bg-white text-slate-800 dark:bg-slate-700 dark:text-white">All ROI</option>
+                      <option className="bg-white text-slate-800 dark:bg-slate-700 dark:text-white">15%+</option>
+                      <option className="bg-white text-slate-800 dark:bg-slate-700 dark:text-white">20%+</option>
+                      <option className="bg-white text-slate-800 dark:bg-slate-700 dark:text-white">25%+</option>
+                      <option className="bg-white text-slate-800 dark:bg-slate-700 dark:text-white">30%+</option>
                     </select>
                     <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                      <div className="w-2.5 h-2.5 border-r-2 border-b-2 border-cyan-400 transform rotate-45"></div>
+                      <div className="w-2.5 h-2.5 border-r-2 border-b-2 border-cyan-500 transform rotate-45"></div>
                     </div>
                   </div>
                 </div>
                 <div>
-                        <label className="block text-sm font-medium text-slate-300 dark:text-slate-300 mb-2">
+                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                     Market Score
                   </label>
                   <div className="relative">
-                        <select className="w-full p-3 pr-10 border border-cyan-500/50 dark:border-cyan-400/50 rounded-lg bg-slate-800/90 dark:bg-slate-700/90 text-white dark:text-white focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 transition-all duration-200 shadow-lg backdrop-blur-sm">
-                      <option className="bg-slate-700 text-white hover:bg-slate-600">All Scores</option>
-                      <option className="bg-slate-700 text-white hover:bg-slate-600">80+</option>
-                      <option className="bg-slate-700 text-white hover:bg-slate-600">85+</option>
-                      <option className="bg-slate-700 text-white hover:bg-slate-600">90+</option>
-                      <option className="bg-slate-700 text-white hover:bg-slate-600">95+</option>
+                        <select className="w-full p-3 pr-10 border-2 border-cyan-400 dark:border-cyan-400/50 rounded-lg bg-white dark:bg-slate-700/90 text-slate-800 dark:text-white focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all duration-200 shadow-lg">
+                      <option className="bg-white text-slate-800 dark:bg-slate-700 dark:text-white">All Scores</option>
+                      <option className="bg-white text-slate-800 dark:bg-slate-700 dark:text-white">80+</option>
+                      <option className="bg-white text-slate-800 dark:bg-slate-700 dark:text-white">85+</option>
+                      <option className="bg-white text-slate-800 dark:bg-slate-700 dark:text-white">90+</option>
+                      <option className="bg-white text-slate-800 dark:bg-slate-700 dark:text-white">95+</option>
                     </select>
                     <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                      <div className="w-2.5 h-2.5 border-r-2 border-b-2 border-cyan-400 transform rotate-45"></div>
+                      <div className="w-2.5 h-2.5 border-r-2 border-b-2 border-cyan-500 transform rotate-45"></div>
                     </div>
                   </div>
                 </div>
                 <div>
-                        <label className="block text-sm font-medium text-slate-300 dark:text-slate-300 mb-2">
+                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                     Search
                   </label>
                   <div className="relative">
-                          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-cyan-400" />
+                          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-cyan-600 dark:text-cyan-400" />
                     <Input
                       type="text"
                       placeholder="Search properties..."
-                            className="w-full pl-12 pr-3 py-3 border border-cyan-500/30 dark:border-cyan-700/30 rounded-lg bg-black/40 dark:bg-slate-800/40 text-slate-200 dark:text-white focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200"
+                            className="w-full pl-12 pr-3 py-3 border-2 border-cyan-400 dark:border-cyan-500/30 rounded-lg bg-white dark:bg-slate-800/40 text-slate-800 dark:text-white focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all duration-200"
                     />
                   </div>
                 </div>
@@ -630,7 +630,7 @@ export default function PropertiesPage() {
               {/* Properties Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {properties.map((property) => (
-                  <Card key={property.id} className="bg-black/40 dark:bg-slate-900/40 border-0 shadow-2xl backdrop-blur-2xl border-cyan-500/20 dark:border-cyan-700/20 rounded-2xl hover:shadow-cyan-500/25 transition-all duration-300 group overflow-hidden">
+                  <Card key={property.id} className="bg-white border-2 border-cyan-300 dark:bg-black/40 dark:border-cyan-500/20 shadow-xl dark:shadow-2xl rounded-2xl hover:shadow-cyan-400/50 dark:hover:shadow-cyan-500/25 transition-all duration-300 group overflow-hidden">
               <div className="relative">
                 <img
                   src={property.image}
@@ -642,7 +642,7 @@ export default function PropertiesPage() {
                           {getPropertyStatusIcon(property.status)}
                     <span>{property.status}</span>
                   </Badge>
-                  <Badge className="bg-black/70 text-white border-0 backdrop-blur-sm">
+                  <Badge className="bg-slate-800/90 text-white border-0 backdrop-blur-sm">
                     <Star className="w-3 h-3 mr-1 fill-current" />
                     {property.marketScore}
                   </Badge>
@@ -656,10 +656,10 @@ export default function PropertiesPage() {
               </div>
               
               <CardHeader className="pb-3">
-                      <CardTitle className="text-lg text-cyan-300 dark:text-cyan-200 group-hover:text-cyan-400 transition-colors duration-200">
+                      <CardTitle className="text-lg text-cyan-700 dark:text-cyan-300 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors duration-200">
                   {property.name}
                 </CardTitle>
-                      <CardDescription className="flex items-center text-slate-400 dark:text-slate-400">
+                      <CardDescription className="flex items-center text-slate-600 dark:text-slate-400">
                   <MapPin className="w-4 h-4 mr-1" />
                   {property.address}
                 </CardDescription>
@@ -669,28 +669,28 @@ export default function PropertiesPage() {
                 <div className="space-y-4">
                   {/* Key Metrics */}
                   <div className="grid grid-cols-2 gap-3">
-                          <div className="text-center p-2 rounded-lg bg-black/20 dark:bg-slate-700/20">
-                            <p className="text-xs text-slate-400 dark:text-slate-400">Price</p>
-                            <p className="text-lg font-bold text-green-400">{property.price}</p>
+                          <div className="text-center p-2 rounded-lg bg-slate-100 dark:bg-slate-700/20">
+                            <p className="text-xs text-slate-600 dark:text-slate-400">Price</p>
+                            <p className="text-lg font-bold text-green-700 dark:text-green-400">{property.price}</p>
                     </div>
-                          <div className="text-center p-2 rounded-lg bg-black/20 dark:bg-slate-700/20">
-                            <p className="text-xs text-slate-400 dark:text-slate-400">ROI</p>
-                            <p className="text-lg font-bold text-blue-400">{property.roi}</p>
+                          <div className="text-center p-2 rounded-lg bg-slate-100 dark:bg-slate-700/20">
+                            <p className="text-xs text-slate-600 dark:text-slate-400">ROI</p>
+                            <p className="text-lg font-bold text-blue-700 dark:text-blue-400">{property.roi}</p>
                     </div>
                   </div>
 
                   {/* Property Details */}
                   <div className="space-y-2">
                     <div className="flex justify-between items-center">
-                            <span className="text-sm text-slate-400 dark:text-slate-400">Type:</span>
+                            <span className="text-sm text-slate-600 dark:text-slate-400">Type:</span>
                             <span className={`text-sm font-medium ${getPropertyTypeColor(property.type)}`}>{property.type}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                            <span className="text-sm text-slate-400 dark:text-slate-400">Occupancy:</span>
-                            <span className="text-sm font-medium text-slate-200 dark:text-slate-200">{property.occupancy}</span>
+                            <span className="text-sm text-slate-600 dark:text-slate-400">Occupancy:</span>
+                            <span className="text-sm font-medium text-slate-700 dark:text-slate-200">{property.occupancy}</span>
                     </div>
                     <div className="flex justify-between items-center">
-                            <span className="text-sm text-slate-400 dark:text-slate-400">Market Score:</span>
+                            <span className="text-sm text-slate-600 dark:text-slate-400">Market Score:</span>
                       <span className={`text-sm font-bold ${getMarketScoreColor(property.marketScore)}`}>
                         {property.marketScore}/100
                       </span>
@@ -700,34 +700,34 @@ export default function PropertiesPage() {
                   {/* Features */}
                   <div className="flex flex-wrap gap-1">
                     {property.features.slice(0, 3).map((feature, index) => (
-                            <Badge key={index} variant="outline" className="text-xs border-cyan-500/30 text-cyan-300">
+                            <Badge key={index} variant="outline" className="text-xs border-cyan-400 text-cyan-700 dark:border-cyan-500/30 dark:text-cyan-300">
                         {feature}
                       </Badge>
                     ))}
                     {property.features.length > 3 && (
-                            <Badge variant="outline" className="text-xs border-cyan-500/30 text-cyan-300">
+                            <Badge variant="outline" className="text-xs border-cyan-400 text-cyan-700 dark:border-cyan-500/30 dark:text-cyan-300">
                         +{property.features.length - 3} more
                       </Badge>
                     )}
                   </div>
 
                   {/* Last Updated */}
-                  <div className="flex items-center text-xs text-slate-500 dark:text-slate-500">
+                  <div className="flex items-center text-xs text-slate-600 dark:text-slate-500">
                     <Clock className="w-3 h-3 mr-1" />
                     Updated {property.lastUpdated}
                   </div>
                   
                   {/* Action Buttons */}
-                        <div className="flex space-x-2 pt-3 border-t border-cyan-500/20 dark:border-cyan-700/20">
-                          <Button variant="outline" size="sm" className="flex-1 hover:bg-cyan-500/20 dark:hover:bg-cyan-500/20 hover:border-cyan-400 dark:hover:border-cyan-400 transition-all duration-200 text-cyan-300 border-cyan-500/30">
+                        <div className="flex space-x-2 pt-3 border-t border-cyan-300 dark:border-cyan-500/20">
+                          <Button variant="outline" size="sm" className="flex-1 hover:bg-cyan-500/20 dark:hover:bg-cyan-500/20 hover:border-cyan-500 dark:hover:border-cyan-400 transition-all duration-200 text-cyan-700 dark:text-cyan-300 border-cyan-400 dark:border-cyan-500/30">
                       <Eye className="w-4 h-4 mr-1" />
                       View
                     </Button>
-                          <Button variant="outline" size="sm" className="flex-1 hover:bg-green-500/20 dark:hover:bg-green-500/20 hover:border-green-400 dark:hover:border-green-400 transition-all duration-200 text-green-300 border-green-500/30">
+                          <Button variant="outline" size="sm" className="flex-1 hover:bg-green-500/20 dark:hover:bg-green-500/20 hover:border-green-500 dark:hover:border-green-400 transition-all duration-200 text-green-700 dark:text-green-300 border-green-400 dark:border-green-500/30">
                       <Edit className="w-4 h-4 mr-1" />
                       Edit
                     </Button>
-                          <Button variant="outline" size="sm" className="text-red-400 hover:text-red-300 hover:bg-red-500/20 dark:hover:bg-red-500/20 hover:border-red-400 dark:hover:border-red-400 transition-all duration-200 border-red-500/30">
+                          <Button variant="outline" size="sm" className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 hover:bg-red-500/20 dark:hover:bg-red-500/20 hover:border-red-500 dark:hover:border-red-400 transition-all duration-200 border-red-400 dark:border-red-500/30">
                       <Trash2 className="w-4 h-4" />
                     </Button>
                   </div>

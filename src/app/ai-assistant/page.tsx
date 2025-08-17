@@ -376,25 +376,25 @@ export default function AIAssistantPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#312e81] dark:from-[#0a0a23] dark:via-[#1e1e3f] dark:to-[#2d1a4a] flex items-center justify-center futuristic-bg">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50 dark:from-[#0f172a] dark:via-[#1e293b] dark:to-[#312e81] flex items-center justify-center futuristic-bg">
       <div className="container mx-auto px-2 sm:px-8 lg:px-16 py-10">
         {/* Enhanced Page Header */}
         <div className="mb-10">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
             <div>
-              <h1 className="text-5xl font-extrabold tracking-tight bg-gradient-to-r from-cyan-400 via-blue-500 to-fuchsia-500 dark:from-white dark:via-blue-200 dark:to-fuchsia-400 bg-clip-text text-transparent animate-gradient-move drop-shadow-[0_2px_16px_rgba(99,102,241,0.25)]">
+              <h1 className="text-5xl font-extrabold tracking-tight bg-gradient-to-r from-cyan-600 via-blue-600 to-fuchsia-600 dark:from-cyan-400 dark:via-blue-500 dark:to-fuchsia-500 bg-clip-text text-transparent animate-gradient-move drop-shadow-[0_2px_16px_rgba(99,102,241,0.25)]">
                 AI Market Assistant
               </h1>
-              <p className="text-slate-400 dark:text-slate-300 mt-3 text-lg font-medium max-w-xl">
+              <p className="text-slate-600 dark:text-slate-300 mt-3 text-lg font-medium max-w-xl">
                 Your intelligent real estate investment companion powered by advanced AI
               </p>
             </div>
             <div className="flex items-center gap-3 mt-4 lg:mt-0">
-              <Button variant="outline" size="sm" className="border-slate-400 dark:border-slate-700 hover:shadow-neon-cyan">
+              <Button variant="outline" size="sm" className="border-slate-500 dark:border-slate-700 hover:shadow-neon-cyan">
                 <Download className="w-4 h-4 mr-2" />
                 Export Chat
               </Button>
-              <Button variant="outline" size="sm" className="border-slate-400 dark:border-slate-700 hover:shadow-neon-pink">
+              <Button variant="outline" size="sm" className="border-slate-500 dark:border-slate-700 hover:shadow-neon-pink">
                 <Share2 className="w-4 h-4 mr-2" />
                 Share
               </Button>
