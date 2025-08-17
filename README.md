@@ -474,4 +474,4 @@ If you encounter any issues or have questions:
 **Built with ❤️ for Real Estate Investors**
 
 *Transform your real estate investment strategy with AI-powered insights and analysis.*
->>>>>>> dfa74fe6c9fc29bf7c76b775d708af73bbff812d
+
